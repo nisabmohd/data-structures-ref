@@ -15,7 +15,8 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Data Structure Refrence",
-  description: "A documentation for data structures",
+  description:
+    "A comprehensive repository documenting essential data structures and algorithmic problems for study and practice.",
 };
 
 export default function RootLayout({
