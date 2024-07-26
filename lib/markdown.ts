@@ -9,8 +9,8 @@ import rehypeCodeTitles from "rehype-code-titles";
 import { page_routes } from "./routes-config";
 import { visit } from "unist-util-visit";
 
-// custom components imports
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AdaptiveThemeImage from "@/components/adaptive-theme-image";
 import Pre from "@/components/pre";
 
 type MdxFrontmatter = {
@@ -18,13 +18,13 @@ type MdxFrontmatter = {
   description: string;
 };
 
-// add custom components
 const components = {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
   pre: Pre,
+  AdaptiveThemeImage,
 };
 
 export async function getMarkdownForSlug(slug: string) {
@@ -57,7 +57,6 @@ export async function getMarkdownForSlug(slug: string) {
 export async function getTocs(slug: string) {
   const contentPath = getContentPath(slug);
   const rawMdx = await fs.readFile(contentPath, "utf-8");
-  // captures between ## - #### can modify accordingly
   const headingsRegex = /^(#{2,4})\s(.+)$/gm;
   let match;
   const extractedHeadings = [];
@@ -106,7 +105,6 @@ const postProcess = () => (tree: any) => {
   visit(tree, "element", (node) => {
     if (node?.type === "element" && node?.tagName === "pre") {
       node.properties["raw"] = node.raw;
-      // console.log(node);
     }
   });
 };
