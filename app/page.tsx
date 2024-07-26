@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex sm:min-h-[91vh] min-h-[88vh] flex-col items-center justify-center text-center px-2 py-8">
+    <div className="flex sm:min-h-[92vh] min-h-[88vh] flex-col items-center justify-center text-center px-2 py-5">
       <Link
         href="https://github.com/nisabmohd/Documentation-Template"
         target="_blank"
@@ -27,22 +27,9 @@ export default function Home() {
           href={`/docs/${page_routes[0].href}`}
           className={buttonVariants({ className: "px-6", size: "lg" })}
         >
-          Get Stared
-        </Link>
-        <Link
-          href="#"
-          className={buttonVariants({
-            variant: "outline",
-            className: "px-6",
-            size: "lg",
-          })}
-        >
-          Customize
+          Explore Documentation
         </Link>
       </div>
-      <span className="flex flex-row items-center gap-2 text-zinc-400 text-md mt-7 -mb-12 max-[800px]:mb-12">
-        <TerminalIcon className="w-4 h-4 mr-1" /> ~ npx this-library-name@latest
-      </span>
     </div>
   );
 }

@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
-import { GeistSans } from "geist/font/sans";
+import { Space_Grotesk } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { Footer } from "@/components/footer";
 import "./globals.css";
+
+const spaceGrotesk = Space_Grotesk({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Data Structure Refrence",
@@ -17,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} font-regular`}
+        className={`${GeistMono.variable} ${spaceGrotesk.variable} font-regular`}
         suppressHydrationWarning
       >
         <ThemeProvider

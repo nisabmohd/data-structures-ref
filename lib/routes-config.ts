@@ -25,7 +25,7 @@ export const ROUTES = [
     href: "queues",
     items: [
       { title: "Linear Queue", href: "/queue" },
-      { title: "Double ended Queue", href: "/deque" },
+      { title: "Doubly ended Queue", href: "/deque" },
       { title: "Circular Queue", href: "/circular-queue" },
     ],
   },
