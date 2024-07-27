@@ -11,6 +11,7 @@ import { visit } from "unist-util-visit";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdaptiveThemeImage from "@/components/adaptive-theme-image";
+import Note from "@/components/note";
 import Pre from "@/components/pre";
 
 type MdxFrontmatter = {
@@ -25,6 +26,7 @@ const components = {
   TabsTrigger,
   pre: Pre,
   AdaptiveThemeImage,
+  Note,
 };
 
 export async function getMarkdownForSlug(slug: string) {

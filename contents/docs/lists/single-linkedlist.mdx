@@ -1,17 +1,208 @@
 ---
 title: Single Linkedlist
-description: Dummy description for Single Linkedlist.
+description: One type of data structure called a single linkedlist uses chaining to store data linearly.
 ---
 
-This is some dummy content for the Single Linkedlist page.
+> Data structures known as linked lists store information linearly by connecting nodes in a chain. A single linked list, which is a structure with only one subsequent reference and inherent value, is one of them.
 
 <AdaptiveThemeImage
   src={{
     dark: "/images/single-linkedlist/intro-dark.png",
     light: "/images/single-linkedlist/intro-light.png",
   }}
-  className="mx-auto"
+  className="mx-auto py-5"
+  width={640}
+  height={400}
+  alt="into-sll"
+/>
+
+A single linked list would appear as above in a diagram if it were annotated. Every node has two chambers, one for the actual value and the other for the reference of the node after it, and so forth.
+
+A single linkedlist is a fundamental structure with `add`, `remove`, and `search` operations. Addition can be performed at any point along the link, and deletion can be performed at any point along the node. The list can be searched or traversed.
+
+## Notations
+
+First, let's examine the data structure using diagrams that illustrate the various operations. We can also observe the implementation of the code. First, allow me to explain the notation used in linked lists. The `head` and `tail` are references, which are initially always refrencing to `null`.
+
+<Note>
+  Though it can be implemented without tail, using tail is preferred for
+  optimization purposes.
+</Note>
+
+This `Node` can therefore be represented programmatically as follows; however, we will leave the node generic since, as we shall see, a data structure must be compatible with all types when created, not just integers.
+
+```java showLineNumbers
+class Node<T> {
+  T val;
+  Node<T> next;
+}
+```
+
+## Operations
+
+As was previously mentioned, not all operations can be performed on a single linkedlist, including `add`, `delete`, and `search`. Let's start with the add operation and go over every possible use case for adding elements to a list.
+
+### Adding when list is empty
+
+When list is empty `head` and `tail` are by default refrencing to `null` and when we want to add an element to it new node is created and head and tail start refering to new Node, lets see this in action.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/empty-add-dark.png",
+    light: "/images/single-linkedlist/empty-add-light.png",
+  }}
+  className="mx-auto pb-4 pt-0"
+  width={570}
+  height={400}
+  alt="into-sll"
+/>
+
+A simple way to determine if a list is empty is to look for `tail` and `head` pointing to `null`. Point directly to this new node if it's empty. We will create functions (getters and setters) and exposed them to manipulate our list, rather than providing direct access to our node list references, because we wanted our data structure to be abstract.
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  private class Node<T>{
+     T val;
+     Node<T> next;
+     public Node(T val){
+      this.val=val;
+     }
+  }
+  private Node head,tail;
+  private int size;
+
+  public SingleLinkedList(){
+    head=null;
+    tail=null;
+    size=0;
+  }
+
+  public boolean isEmpty(){
+    return head==null && tail==null;
+  }
+
+  // add when list is empty
+  private void init(T val){
+    var node=new Node<T>(val);
+    head=node;
+    tail=head;
+    size++;
+  }
+
+  public void addAtEnd(T val){
+    if(isEmpty()){
+      init(val);
+      return;
+    }
+    // other logic ...
+  }
+}
+```
+
+Since we are not allowing users to directly alter our `Node` list, as you can see from the above code, we now have a class called `SingleLinkedList` with getters and setters to add and manipulate. Moreover, the `size` variable tracks the list's size; it increases when an element is added and decreases when one is removed.
+
+### Adding element to end
+
+The `addAtEnd` function essentially appends a new element at the end of the list while also checking to see if the list is currently empty. When `addAtEnd` function is called, it will append to the next instance of `tail`, transforming the new node into `tail`. Until then, the new node is `head` when it is empty. See the illustration for a clearer understanding.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/add-end-dark.png",
+    light: "/images/single-linkedlist/add-end-light.png",
+  }}
+  className="mx-auto py-6"
+  width={650}
+  height={400}
+  alt="into-sll"
+/>
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public void addAtEnd(T val){
+    if(isEmpty()){
+      init(val);
+      return;
+    }
+    // add new elements in last
+    var node=new Node<T>(val);
+    tail.next=node;
+    tail=tail.next;
+    size++;
+  }
+}
+```
+
+### Adding element to start
+
+It's quite simple to add an element to begin. Create a `node`, set its next point to `head`, and begin pointing your `head` at this `node`. That's all there is to it. Additionally, make sure the list is not empty. If it is, you must initialize the list with that particular `node`. `addAtStart` is the function we will create to handle this logic. See the illustration for a clearer understanding.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/add-start-dark.png",
+    light: "/images/single-linkedlist/add-start-light.png",
+  }}
+  className="mx-auto py-3"
   width={600}
   height={400}
   alt="into-sll"
 />
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public void addAtStart(T val){
+    if(isEmpty()){
+      init(val);
+      return;
+    }
+    // add new elements at start
+    var node=new Node<T>(val);
+    node.next=head;
+    head=node;
+    size++;
+  }
+}
+```
+
+### Adding element at an index
+
+This use case needs to be handled carefully as user specifies the index which can be invalid toolbar, but how we will understand that given index is perfect? inorder to understand a index given bu user is valid we need compare it with length if it is greater than that or less than zero then its invalid index. other wise you can iterate over list and get to before index of node list and add the node there. See the illustration for a clearer understanding.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/add-at-dark.png",
+    light: "/images/single-linkedlist/add-at-light.png",
+  }}
+  className="mx-auto py-3"
+  width={600}
+  height={400}
+  alt="into-sll"
+/>
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public void addAtIndex(T val, int index) {
+    if (index < 0 || index > size) {
+      throw new RuntimeException("Invalid index");
+    }
+    if (index == 0) {
+      addAtStart(val);
+      return;
+    }
+    if (index == size) {
+      addAtEnd(val);
+      return;
+    }
+    var node = new Node<T>(val);
+    var temp = head;
+    while (index > 1) {
+      temp = temp.next;
+      index--;
+    }
+    node.next = temp.next;
+    temp.next = node;
+  }
+}
+```
