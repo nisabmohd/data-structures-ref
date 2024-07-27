@@ -68,7 +68,7 @@ public class SingleLinkedList<T> {
       this.val=val;
      }
   }
-  private Node head,tail;
+  private Node<T> head,tail;
   private int size;
 
   public SingleLinkedList(){
@@ -133,6 +133,11 @@ public class SingleLinkedList<T> {
 }
 ```
 
+<Note title="Remember">
+  If tail is used, adding an element to the end of the index requires constant
+  time. Therefore, this operation's time complexity is `O(1)`.
+</Note>
+
 ### Adding element to start
 
 It's quite simple to add an element to begin. Create a `node`, set its next point to `head`, and begin pointing your `head` at this `node`. That's all there is to it. Additionally, make sure the list is not empty. If it is, you must initialize the list with that particular `node`. `addAtStart` is the function we will create to handle this logic. See the illustration for a clearer understanding.
@@ -164,6 +169,12 @@ public class SingleLinkedList<T> {
   }
 }
 ```
+
+<Note title="Remember">
+  Since adding a new node reference to the head of a list only requires a
+  constant amount of time, the time complexity of adding a new element to the
+  start is `O(1)`.
+</Note>
 
 ### Adding element at an index
 
@@ -203,6 +214,192 @@ public class SingleLinkedList<T> {
     }
     node.next = temp.next;
     temp.next = node;
+    size++;
   }
 }
 ```
+
+<Note title="Remember">
+  Deleting an element of list at an index takes you linear time, ie you iterate
+  over the list based on indexed, hence the time complexity is `O(N)`
+</Note>
+
+### Deleting element from start
+
+It's very easy to remove an element from the beginning of a single linkedlist; all you have to do is move the `head` to `head.next`. however, we also need to verify that the list is empty. If we attempt to delete, an error may occur; additionally, the size should decrease upon deletion.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/delete-start-dark.png",
+    light: "/images/single-linkedlist/delete-start-light.png",
+  }}
+  className="mx-auto py-3"
+  width={620}
+  height={400}
+  alt="into-sll"
+/>
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public T deleteFromStart() {
+    if (isEmpty()) throw new RuntimeException("List is empty");
+    T val = head.val;
+    head = head.next;
+    size--;
+    return val;
+  }
+}
+```
+
+<Note title="Remember">
+  Deleting an element from beggining of list cost you constant time, just need
+  to move head forward, so time complexity would be `O(1)`
+</Note>
+
+### Deleting element from end
+
+To remove an element from the last position in a single linked list, you have to traverse until right before the tail, at which point you have to make that node the new tail and set the next node to `null`. A list can also be empty, in which case you'll need to verify and usually reduce the size.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/delete-end-dark.png",
+    light: "/images/single-linkedlist/delete-end-light.png",
+  }}
+  className="mx-auto py-3"
+  width={650}
+  height={400}
+  alt="into-sll"
+/>
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public T deleteFromEnd() {
+    if (isEmpty()) throw new RuntimeException("List is empty");
+    if (head == tail) {
+      var val = head.val;
+      head = null;
+      tail = null;
+      return val;
+    }
+    var temp = head;
+    while (temp != tail) {
+      temp = temp.next;
+    }
+    T val = temp.next.val;
+    temp.next = null;
+    tail = temp;
+    size--;
+    return val;
+  }
+}
+```
+
+<Note title="Remember">
+  Deleting an element from list at last index makes you iterate over to last of
+  list, hence this operation takes `O(N)` time complexity.
+</Note>
+
+### Deleting element from index
+
+In order to delete an element from a list at an index, we must iterate over the list based on the index in order to get the node that comes before the provided index node and set the next node reference as the next next node.
+
+<AdaptiveThemeImage
+  src={{
+    dark: "/images/single-linkedlist/delete-at-dark.png",
+    light: "/images/single-linkedlist/delete-at-light.png",
+  }}
+  className="mx-auto py-3"
+  width={650}
+  height={400}
+  alt="into-sll"
+/>
+
+```java:SingleLinkedList.java
+public class SingleLinkedList<T> {
+  // ...
+  public T deleteAtIndex(int index) {
+    if (index < 0 || index >= size) {
+      throw new RuntimeException("Invalid index");
+    }
+    if (index == 0) return deleteFromStart();
+    if (index == size - 1) return deleteFromEnd();
+    var temp = head;
+    while (temp != tail) {
+      temp = temp.next;
+    }
+    var val = temp.next.val;
+    temp.next = temp.next.next;
+    size--;
+    return val;
+  }
+}
+```
+
+<Note title="Remember">
+  Deleting an element from list at a given index makes you iterate over list
+  based on index, hence this operation takes `O(N)` time complexity.
+</Note>
+
+### Search or Traverse
+
+Traversing over list or searching elemeent in list would be like to move over entire element in worst case. Hence for search or traverse the operation would cost `O(N)`. the code approach would be simple just moving out cursor forward to entire list.
+
+## Conclusion
+
+Single linked lists are efficient for insertions and deletions but lack direct access to elements. They are best suited for scenarios where memory efficiency and dynamic growth are priorities.
+
+{/* ### Time complexity table */}
+
+## Practise
+
+To become an expert on this topic, practice the problems that are highly recommended and attempt to solve additional problems related to it.
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Problem name</TableHead>
+      <TableHead>Platform</TableHead>
+      <TableHead>Difficulty</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">
+        <Link href="https://leetcode.com/problems/merge-two-sorted-lists">
+          Merge Two Sorted Lists
+        </Link>
+      </TableCell>
+      <TableCell>Leetcode</TableCell>
+      <TableCell>Easy</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <Link href=" https://leetcode.com/problems/add-two-numbers">
+          Add Two Numbers
+        </Link>
+      </TableCell>
+      <TableCell>Leetcode</TableCell>
+      <TableCell>Medium</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <Link href="https://www.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1">
+          Intersection Point in Y Shaped Linked Lists
+        </Link>
+      </TableCell>
+      <TableCell>GFG</TableCell>
+      <TableCell>Medium</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <Link href=" https://leetcode.com/problems/reverse-nodes-in-k-group">
+          Reverse Nodes in k-Group
+        </Link>
+      </TableCell>
+      <TableCell>Leetcode</TableCell>
+      <TableCell>Hard</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

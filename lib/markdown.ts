@@ -9,8 +9,19 @@ import rehypeCodeTitles from "rehype-code-titles";
 import { page_routes } from "./routes-config";
 import { visit } from "unist-util-visit";
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdaptiveThemeImage from "@/components/adaptive-theme-image";
+import Link from "next/link";
 import Note from "@/components/note";
 import Pre from "@/components/pre";
 
@@ -27,6 +38,15 @@ const components = {
   pre: Pre,
   AdaptiveThemeImage,
   Note,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Link,
 };
 
 export async function getMarkdownForSlug(slug: string) {
