@@ -14,7 +14,7 @@ export default function Home() {
         Follow along on GitHub{" "}
         <MoveUpRightIcon className="w-4 h-4 font-extrabold" />
       </Link>
-      <h1 className="text-3xl font-extrabold mb-6 sm:text-7xl">
+      <h1 className="text-4xl text-balance font-extrabold mb-6 sm:text-7xl">
         Explore Essential Data Structures with In-Depth Guides and Examples
       </h1>
       <p className="mb-8 sm:text-lg max-w-[1000px] text-muted-foreground">
