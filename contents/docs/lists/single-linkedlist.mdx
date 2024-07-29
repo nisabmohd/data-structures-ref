@@ -31,12 +31,37 @@ First, let's examine the data structure using diagrams that illustrate the vario
 
 This `Node` can therefore be represented programmatically as follows; however, we will leave the node generic since, as we shall see, a data structure must be compatible with all types when created, not just integers.
 
-```java showLineNumbers
-class Node<T> {
-  T val;
-  Node<T> next;
-}
-```
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+  </TabsList>
+  <TabsContent value="java">
+  ```java showLineNumbers
+  class Node<T> {
+    T val;
+    Node<T> next;
+    public Node(T val){
+      this.val=val;
+    }
+  }
+  ```
+  </TabsContent>
+  <TabsContent value="ts">
+  
+  ```ts showLineNumbers
+  // Node identifier is already taken in TS
+  class ListNode<T> {
+    val: T;
+    next: ListNode<T> | null;
+    public constructor(val: T, next?: ListNode<T>) {
+      this.val = val;
+      this.next = next ?? null;
+    }
+  }
+  ```
+  </TabsContent>
+</Tabs>
 
 ## Operations
 
